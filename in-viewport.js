@@ -3,7 +3,6 @@ import Vue from 'vue';
 export const inviewport = {
     inserted: function (el,binding) {
         //DATA
-        var pageHeight = null;
         var elem = null;
         var viewport = null;
         var scrollY = null;
@@ -32,7 +31,6 @@ export const inviewport = {
                 terminal.style.cssText = "position: fixed;top:0;right:0;background-color:#000;color: #fff;width: 300px;height: 300px;z-index: 100;opacity: .8;padding:15px;";
                 document.body.appendChild(terminal);
                 
-
                 var marginTop = document.createElement("div");
                 marginTop.style.cssText = "position:fixed;height: 1px;width: 100%;background-color: red;left:0;z-index: 50;top:"+viewportTopMargin+"px;";
                 document.body.appendChild(marginTop);
@@ -48,11 +46,6 @@ export const inviewport = {
         }
 
         //FUNCTIONS
-        var getPageHeight = function(){
-            var _body = document.body, _html = document.documentElement;
-            return Math.max( _body.scrollHeight, _body.offsetHeight, _html.clientHeight, _html.scrollHeight, _html.offsetHeight);
-        };
-
         var getElemClientRect = function(){
             return JSON.parse(JSON.stringify(el.getBoundingClientRect()));
         };
@@ -120,14 +113,12 @@ export const inviewport = {
 
         //UPDATE FUNCTION
         var updatePositions = function(){
-            pageHeight = getPageHeight();
             elem = getElemClientRect();
             viewport = getViewportHeight();
             scrollY = getScrollY();
             elementPos = checkPosition();
             if(debugMode){
                 console.log('--------------------------')
-                console.log('pageHeight = '+pageHeight);
                 console.log('elem.top = '+elem.top);
                 console.log('elem.bottom = '+elem.bottom);
                 console.log('viewport = '+viewport);
@@ -136,7 +127,6 @@ export const inviewport = {
                 console.log('viewportBottomMargin = '+viewportBottomMargin);
                 console.log('elementPos = '+elementPos);
                 var html = '';
-                html += 'pageHeight = '+pageHeight+'<br />';
                 html += 'viewport = '+viewport+'<br />';
                 html += 'scrollY = '+scrollY+'<br />';
                 html += 'viewportTopMargin = '+viewportTopMargin+'<br />';
